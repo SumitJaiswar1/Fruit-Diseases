@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat - Fruit Disease Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ai_chat.css') }}">
+    
+</head>
+<body>
+
+    <h1>AI Chat - Ask About Fruit Diseases</h1>
+
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box">
+            <p><strong>AI:</strong> Hello! Ask me about any fruit disease.</p>
+        </div>
+        <input type="text" id="user-input" placeholder="Type your question...">
+        <button onclick="sendMessage()">Ask AI</button>
+    </div>
+
+    <script>
+        function sendMessage() {
+            let userInput = document.getElementById("user-input").value.trim();
+            let chatBox = document.getElementById("chat-box");
+
+            if (userInput === "") return;
+
+            chatBox.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
+            document.getElementById("user-input").value = "";
+
+            fetch("/ask_ai", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query: userInput })  // Fix: "query" instead of "question"
+})
+
+            .then(response => response.json())
+            .then(data => {
+                console.log("AI Response:", data);  // Debugging
+                if (data.response) {
+                    chatBox.innerHTML += `<p><strong>AI:</strong> ${data.response}</p>`;
+                } else {
+                    chatBox.innerHTML += `<p><strong>AI:</strong> Error fetching response.</p>`;
+                }
+                chatBox.scrollTop = chatBox.scrollHeight;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                chatBox.innerHTML += `<p><strong>AI:</strong> Sorry, an error occurred.</p>`;
+            });
+        }
+    </script>
+
+</body>
+</html>

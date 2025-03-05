@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/history.css') }}">
+
+</head>
+<body>
+
+<h2>Your Upload History</h2>
+
+{% if history_data %}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Image</th>
+            <th>Predicted Disease</th>
+            <th>Upload Time</th>
+            <th>Delete</th>
+        </tr>
+        {% for entry in history_data %}
+        <tr>
+            <td>{{ entry[0] }}</td>
+            <td>
+                <img src="{{ url_for('uploaded_file', filename=entry[1].split('/')[-1]) }}" alt="Uploaded Image">
+            </td>
+            <td>{{ entry[2] }}</td>
+            <td>{{ entry[3] }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('delete_history', entry_id=entry[0]) }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No history available.</p>
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Fruit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menustyle.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('menu') }}">Get Started</a></li>
+                <li><a href="{{ url_for('ai_chat') }}">AI Chat</a></li>  <!-- AI Chat Link Added -->
+                {% if 'user_id' in session %}
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Select a Fruit</h1>
+        <div class="fruit-options">
+            <div class="fruit-card">
+                <img src="{{ url_for('static', filename='images/apple.jpg') }}" alt="Apple">
+                <a href="{{ url_for('upload', fruit='apple') }}" class="btn">Apple</a>
+            </div>
+            <div class="fruit-card">
+                <img src="{{ url_for('static', filename='images/mango_fr.jpg') }}" alt="Mango">
+                <a href="{{ url_for('upload', fruit='mango') }}" class="btn">Mango</a>
+            </div>
+            <div class="fruit-card">
+                <img src="{{ url_for('static', filename='images/tomato.jpg') }}" alt="Tomato">
+                <a href="{{ url_for('upload', fruit='tomato') }}" class="btn">Tomato</a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Fruit Disease Detection</p>
+    </footer>
+</body>
+</html>

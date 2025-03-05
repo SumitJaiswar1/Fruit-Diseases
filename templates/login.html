@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+
+        {% if session['logged_in'] %}
+            <p>You are already logged in as <strong>{{ session['username'] }}</strong>.</p>
+            <a href="{{ url_for('logout') }}">
+                <button class="logout-btn">Logout</button>
+            </a>
+        {% else %}
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div>
+                        {% for category, message in messages %}
+                            <p style="color: {% if category == 'success' %}green{% else %}red{% endif %};">
+                                {{ message }}
+                            </p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form action="/login" method="POST">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+
+            <!-- Link for new users to register -->
+            <a href="{{ url_for('register') }}" class="signup-link">New user? Sign up here</a>
+
+        {% endif %}
+
+        <!-- Home Button -->
+        <a href="{{ url_for('home') }}">
+            <button class="home-btn">Home</button>
+        </a>
+    </div>
+
+</body>
+</html>

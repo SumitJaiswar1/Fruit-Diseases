@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analysis Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <!-- Navigation as in home.html -->
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('menu') }}">Get Started</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Analysis Result</h1>
+        <p>Your image has been analyzed. The result is:</p>
+        <div class="result">
+            <p><strong>{{ predicted_class }}</strong></p>
+            <p>Confidence: {{ predicted_probability|round(2) }}%</p>
+            <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Uploaded Image" style="max-width: 300px; margin-top: 20px;">
+        </div>
+        <a href="{{ url_for('home') }}" class="btn">Go Back Home</a>
+    </main>
+    <footer>
+        <!-- Footer content -->
+        <p>&copy; 2024 Fruit Disease Detection</p>
+    </footer>
+</body>
+</html>

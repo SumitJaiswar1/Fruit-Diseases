@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Disease Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('menu') }}">Get Started</a></li>
+                {% if 'user_id' in session %}
+                    <li><a href="{{ url_for('history') }}">Upload History</a></li>
+                {% endif %}
+                <li><a href="{{ url_for('ai_chat') }}">AI Chat</a></li> <!-- AI Chat Link Added -->
+            </ul>
+        </nav>
+
+        <div class="user-section">
+            {% if 'user_id' in session %}
+                <span class="user-info">Hi, {{ session['username'] }}</span>
+                <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn">Login</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- Main Section -->
+    <main class="hero">
+        <img src="{{ url_for('static', filename='images/landing.jpg') }}" alt="Fruits" class="hero-image">
+
+        <div class="hero-content">
+            <h1>Fruit Disease Detection</h1>
+            <p>Detect diseases in fruits using Deep Learning.</p>
+            <a href="{{ url_for('menu') }}" class="btn">Make a Prediction</a>
+            {% if 'user_id' in session %}
+                <a href="{{ url_for('history') }}" class="btn">View Upload History</a>
+            {% endif %}
+            <a href="{{ url_for('ai_chat') }}" class="btn">Chat with AI</a> <!-- AI Chat Button Added -->
+        </div>
+    </main>
+
+    <section class="info">
+        <h2>About the Project</h2>
+        <p>
+            Early detection of fruit diseases is crucial for farmers and the agriculture industry.
+            This project uses advanced deep learning techniques to accurately identify diseases
+            in fruits like apples, mangos, and tomatoes from images.
+        </p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Fruit Disease Detection</p>
+    </footer>
+</body>
+</html>

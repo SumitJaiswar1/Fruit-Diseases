@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Image</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/uploadstyle.css') }}">
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <!-- Navigation as in home.html -->
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('menu') }}">Get Started</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Upload {{ fruit.capitalize() }} Image</h1>
+        <form action="" method="post" enctype="multipart/form-data">
+            <label for="image">Select an image to upload:</label>
+            <input type="file" name="image" id="image" accept="image/*" required>
+            <button type="submit" class="btn">Upload and Analyze</button>
+        </form>
+    </main>
+    <footer>
+        <!-- Footer content -->
+        <p>&copy; 2024 Fruit Disease Detection</p>
+    </footer>
+</body>
+</html>
